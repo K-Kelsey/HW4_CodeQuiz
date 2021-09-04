@@ -33,7 +33,7 @@ header {
     align-items: center;
     justify-content: space-between;
     border-radius: 5px 5px 0 0;
-    box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.1);
     margin-bottom: 25px;
 }
 
@@ -123,8 +123,13 @@ body.wrong {
 }
 
 input {
+    text-transform: uppercase;
     padding: 7px;
     height: 40px;
+}
+
+fieldset {
+    margin-bottom: 20px;
 }
 
 .controls {
@@ -135,4 +140,26 @@ input {
 
 .hide {
     display: none;
+}
+
+#lsValue,
+#myTable {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.column1,
+.column2,
+#myTable {
+    float: left;
+    width: 50%;
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }

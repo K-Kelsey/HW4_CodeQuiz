@@ -6,6 +6,12 @@ const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 const timeCount = document.getElementById("time_sec");
 const endGame = document.getElementById("gameOver")
+const scoreText = document.getElementById("score-text")
+const inpValue = document.getElementById("inpValue")
+const lsValue = document.getElementById("lsValue")
+const myTable = document.getElementById("myTable")
+
+
 
 let time;
 let score = 0;
@@ -19,12 +25,74 @@ nextButton.addEventListener('click', () => {
     setNextQuestion()
 })
 
-endButton.addEventListener('click', startGame);
+endButton.addEventListener('click', function() {
+    // myTable.remove()
+    endButton.classList.add('hide')
+    const value = inpValue.value
+    console.log(value);
+
+    localStorage.setItem(value, score);
+
+    if (value === true) {
+        localStorage.setItem(value);
+        location.reload
+    }
+
+    remove_scores()
+
+});
+
+// async function new_fun(){
+//     if local storage > 0
+//         remove_scores()
+//         await(1000)
+//         update_scores()
+// }else {
+//         update_scores()
+//     }
+
+
+function remove_scores() {
+    const row = document.getElementById("myTable")
+    for (let j in row.cells) {
+        let col = row.cells[j]
+        col.deleteRows(j)
+    }
+}
+
+function update_scores() {
+    for (const [key1, value1] of Object.entries(localStorage)) {
+        //overwrite the existing table
+        const table = document.getElementById("myTable")
+        var row = table.insertRow(0);
+        var player_name = row.insertCell(0)
+        var player_score = row.insertCell(1)
+        player_name.innerHTML += key1;
+        player_score.innerHTML += value1;
+    }
+}
+
+// function high_scores() {
+//     for (const [key2, value2] of Object.entries(document.getElementById("myTable"))) {
+//         const table = document.getElementById("myTable")
+//         var row = table.deleteRow(0);
+//     }
+//     for (const [key1, value1] of Object.entries(localStorage)) {
+//         //overwrite the existing table
+//         const table = document.getElementById("myTable")
+//         var row = table.insertRow(0);
+//         var player_name = row.insertCell(0)
+//         var player_score = row.insertCell(1)
+//         player_name.innerHTML += key1;
+//         player_score.innerHTML += value1;
+//     }
+// }
+
 
 function startGame() {
     startTimer();
     startButton.classList.add('hide')
-    for (let i = 0; i < questions.length; i++) {
+    for (var i = 0; i < questions.length; i++) {
         shuffledQuestions = questions.sort(() => Math.random() - .5)
     }
     currentQuestionIndex = 0
@@ -38,6 +106,7 @@ function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
     if (currentQuestionIndex > questions.length) {
+        clearInterval(counter)
         startButton.classList.add('hide')
         endButton.classList.remove('hide')
     }
@@ -52,9 +121,6 @@ function showQuestion(question) {
         if (answer.correct) {
             button.dataset.correct = answer.correct
         }
-        // if (answer != answer.correct) {
-        //     time -= 5;
-        // }
         button.addEventListener('click', selectAnswer)
         answerButtonsElement.appendChild(button)
     })
@@ -77,12 +143,9 @@ function startTimer() {
             timeCount.textContent = "00";
             gameOver()
         }
-
-        if (currentQuestionIndex > questions.length) {
-            //stop
-        }
     }, 1000);
 }
+
 
 function resetState() {
     clearStatusClass(document.body)
@@ -92,7 +155,7 @@ function resetState() {
     }
 }
 
-//timer broke, will not decrease timer upon chosen wrong answer
+
 function selectAnswer(e) {
     varscore = 0;
     var selectedButton = e.target
@@ -100,11 +163,14 @@ function selectAnswer(e) {
 
     console.log(correct)
     clearStatusClass(document.body)
-    if (question.answer = true) {
+    if (correct) {
         score += 20;
-    }
-    if (question.answer = false) {
+        scoreText.textContent = score;
+
+    } else {
         score -= 10;
+        scoreText.textContent = score;
+
     }
 
     setStatusClass(document.body, correct)
@@ -115,9 +181,9 @@ function selectAnswer(e) {
         nextButton.classList.remove('hide')
         setTimeout(time);
     } else {
-        clearInterval(time);
-        startButton.innerText = 'Restart'
-        startButton.classList.remove('hide')
+        clearInterval(counter);
+        endButton.innerText = 'Submit'
+        endButton.classList.remove('hide')
 
         gameOver();
     }
@@ -141,25 +207,24 @@ function gameOver() {
     questionContainerElement.classList.add('hide')
     answerButtonsElement.classList.add('hide')
     questionElement.classList.add('hide')
+    scoreText.classList.add('hide')
 
-    const button = document.createElement('button')
 
     var scoreEl = document.querySelector('.score')
     scoreEl.textContent = score;
     setScoreTracker()
     console.log(score)
+    update_scores()
+        // high_scores()
+        // localStorage.clear()
 
 }
 
-//Score function broken ---------------------------------------------
 function setScoreTracker() {
     // place score in html element at game over
     console.log("Score: " + score);
 }
 
-// function saveScore() {
-
-// }
 
 
 function clearStatusClass(element) {

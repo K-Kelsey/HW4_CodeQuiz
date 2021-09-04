@@ -35,9 +35,31 @@
 
         <div id="gameOver" class="hide">
             <h1>STAHP U R DONE.</h1>
-            <h2 id="points">0</h2>
+            <h2>You got a score of:</h2>
+            <h3 class="score" id="score">0</h3>
             <h3>Enter Your Initials to Save Your Score!</h3>
-            <input type="text" placeholder="Enter Your Initials" id="userName">
+            <fieldset>
+                <legend>Enter Here</legend>
+                <input type="text" id="inpValue" placeholder="Enter Initials..">
+            </fieldset>
+            <fieldset>
+                <legend>HighScores</legend>
+                <div id="lsValue">
+                    <div class="row">
+                        <div class="column1">
+                            <h4>Players</h4>
+                        </div>
+                        <div class="column2">
+                            <h4>Score</h4>
+                        </div>
+                    </div>
+                </div>
+                <table id="myTable">
+                    <tr>
+                    </tr>
+                </table>
+                <br>
+            </fieldset>
         </div>
 
         <div class="controls">
@@ -47,7 +69,7 @@
             <button id="restart-btn" class="restart-btn btn hide">Score</button>
         </div>
 
-        <text class="score" id="score"></text>
+        <text class="score-text" id="score-text"></text>
     </div>
 
 </body>
