@@ -52,15 +52,6 @@ endButton.addEventListener('click', function() {
         update_scores()
     }
 
-    //---------------fix sorting method----------------
-    // const sortedScores = scoresArray.sort(function(a, b) {
-    //     if (b.score > a.score) {
-    //         return 1;
-    //     } else
-    //         return -1
-    // });
-
-
 });
 
 
