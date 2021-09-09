@@ -12,7 +12,7 @@ const lsValue = document.getElementById("lsValue")
 const myTable = document.getElementById("myTable")
 
 
-
+let scoresArray;
 let time;
 let score = 0;
 let counter;
@@ -26,67 +26,82 @@ nextButton.addEventListener('click', () => {
 })
 
 endButton.addEventListener('click', function() {
-    // myTable.remove()
+
     endButton.classList.add('hide')
     const value = inpValue.value
     console.log(value);
 
-    localStorage.setItem(value, score);
 
-    if (value === true) {
-        localStorage.setItem(value);
-        location.reload
+
+    if (value) {
+        let object = {
+            name: value,
+            score: score
+        }
+        var stringifiedScores = localStorage.getItem("userScores") || "[]"
+        console.log(stringifiedScores)
+
+        var parsedScores = JSON.parse(stringifiedScores)
+        console.log(parsedScores)
+
+        parsedScores.push(object)
+        var updatedScoresStringified = JSON.stringify(parsedScores)
+        console.log(updatedScoresStringified)
+
+        localStorage.setItem("userScores", updatedScoresStringified);
+        update_scores()
     }
 
-    remove_scores()
+    //---------------fix sorting method----------------
+    // const sortedScores = scoresArray.sort(function(a, b) {
+    //     if (b.score > a.score) {
+    //         return 1;
+    //     } else
+    //         return -1
+    // });
+
 
 });
-
-// async function new_fun(){
-//     if local storage > 0
-//         remove_scores()
-//         await(1000)
-//         update_scores()
-// }else {
-//         update_scores()
-//     }
 
 
 function remove_scores() {
     const row = document.getElementById("myTable")
-    for (let j in row.cells) {
-        let col = row.cells[j]
-        col.deleteRows(j)
-    }
+    row.innerHTML = "";
 }
+
+
 
 function update_scores() {
-    for (const [key1, value1] of Object.entries(localStorage)) {
-        //overwrite the existing table
-        const table = document.getElementById("myTable")
-        var row = table.insertRow(0);
+    remove_scores();
+    var scoresArray = JSON.parse(localStorage.getItem("userScores")) || [];
+    //----------sort scores array by value
+    const table = document.getElementById("myTable")
+
+    for (let i = 0; i < scoresArray.length; i++) {
+        //-------overwrite the existing table
+
+        var row = table.insertRow(i);
         var player_name = row.insertCell(0)
         var player_score = row.insertCell(1)
-        player_name.innerHTML += key1;
-        player_score.innerHTML += value1;
+        player_name.innerHTML += scoresArray[i].name;
+        player_score.innerHTML += scoresArray[i].score;
     }
+    scoresArray.sort(function(a, b) {
+        // return a.score > b.score;
+        return a.scoresArray.localeCompare(b.scoresArray);
+    });
+    console.log(a.scoresArray)
+        //  {
+        //     if (b.scoresArray.value > a.scoresArray.value) {
+        //         return 1;
+        //     } else
+        //         return -1
+        // });
 }
 
-// function high_scores() {
-//     for (const [key2, value2] of Object.entries(document.getElementById("myTable"))) {
-//         const table = document.getElementById("myTable")
-//         var row = table.deleteRow(0);
-//     }
-//     for (const [key1, value1] of Object.entries(localStorage)) {
-//         //overwrite the existing table
-//         const table = document.getElementById("myTable")
-//         var row = table.insertRow(0);
-//         var player_name = row.insertCell(0)
-//         var player_score = row.insertCell(1)
-//         player_name.innerHTML += key1;
-//         player_score.innerHTML += value1;
-//     }
-// }
+
+// I am giving up on it for now..
+//
 
 
 function startGame() {
@@ -215,8 +230,7 @@ function gameOver() {
     setScoreTracker()
     console.log(score)
     update_scores()
-        // high_scores()
-        // localStorage.clear()
+
 
 }
 
