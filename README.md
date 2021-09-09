@@ -7,7 +7,7 @@ Here is how to navigat it:
 >When the start button is clicked, you will be prompted with a series of five questions with a timer starting at 45sec.
 >Once an answer has been chosen, there will be a display feature either indicating the right answer was chosen or that the wrong answer was chosen.
 >If in the event that a wrong answer was chosen, the timer will be subtracted by 5sec and your score will be deducted by 10.
->Once the quiz is complete, you will be asked to enter your initals to save your highscore!
+>Once the quiz is complete, you will be asked to enter your initals to save your highscore! To restart the quiz, you will need to refresh the homepage via the icon placed in the top-left of your browser.
 >Enjoy!
 
 Here is a sample of how the website will look:
