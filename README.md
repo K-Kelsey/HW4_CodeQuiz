@@ -3,7 +3,7 @@
 
 This is my code quiz that I completed for week 4's homework.
 
-Here is how to navigat it:
+Here is how to navigate it:
 >When the start button is clicked, you will be prompted with a series of five questions with a timer starting at 45sec.
 >Once an answer has been chosen, there will be a display feature either indicating the right answer was chosen or that the wrong answer was chosen.
 >If in the event that a wrong answer was chosen, the timer will be subtracted by 5sec and your score will be deducted by 10.
