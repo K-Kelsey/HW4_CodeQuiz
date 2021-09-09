@@ -77,6 +77,13 @@ function update_scores() {
     //----------sort scores array by value
     const table = document.getElementById("myTable")
 
+
+    scoresArray.sort(function(a, b) {
+
+        return b.score - a.score;
+    });
+    console.log(scoresArray, 'after sort')
+
     for (let i = 0; i < scoresArray.length; i++) {
         //-------overwrite the existing table
 
@@ -86,22 +93,10 @@ function update_scores() {
         player_name.innerHTML += scoresArray[i].name;
         player_score.innerHTML += scoresArray[i].score;
     }
-    scoresArray.sort(function(a, b) {
-        // return a.score > b.score;
-        return a.scoresArray.localeCompare(b.scoresArray);
-    });
-    console.log(a.scoresArray)
-        //  {
-        //     if (b.scoresArray.value > a.scoresArray.value) {
-        //         return 1;
-        //     } else
-        //         return -1
-        // });
+
 }
 
 
-// I am giving up on it for now..
-//
 
 
 function startGame() {
